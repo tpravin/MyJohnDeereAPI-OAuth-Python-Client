@@ -1,6 +1,6 @@
 # Tested with Python 2.6.8
 # download Request OAuthlib from https://github.com/requests/requests-oauthlib
-from requests_oauthlib import OAuth1Session
+from requests_oauthlib.oauth1_session import OAuth1Session
 from datetime import datetime
 import os.path
 import json
@@ -89,7 +89,7 @@ def handle_endpoint(this_choice, this_prev_response):
 
 
 # some basic declarations
-base_url = 'https://api.deere.com/platform'
+base_url = 'https://apicert.soa-proxy.deere.com/platform'
 credentials_store_name = 'credentials_store'
 token_store_name = 'token_store'
 
@@ -123,6 +123,7 @@ if choice == 'q':
 
 chosen_credentials = {}
 if choice == 'a':
+    credentials = []
     print 'Adding credentials...'
     owner = raw_input('Owner: ')
     client_key = raw_input('Client key: ')
@@ -164,8 +165,8 @@ if choice == 'a':
     response = r.json()
     print json.dumps(response, indent=4, sort_keys=True)
     request_token_url = extract_link(response, 'oauthRequestToken')
-    # authorization_url = extract_link(response, 'oauthAuthorizeRequestToken')
-    authorization_url = 'https://my.deere.com/consentToUseOfData'
+    authorization_url = extract_link(response, 'oauthAuthorizeRequestToken')
+    #authorization_url = 'https://my.deere.com/consentToUseOfData'
     access_token_url = extract_link(response, 'oauthAccessToken')
     wait = raw_input('Enter to continue...')
 
