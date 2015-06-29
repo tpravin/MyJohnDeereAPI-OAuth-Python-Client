@@ -179,6 +179,7 @@ if choice == 'a':
 
     print
     print 'Step 2: follow this link to authorize (this requires action by the user)'
+    authorization_url = authorization_url.replace("oauth_token={token}","")
     print oauth_session.authorization_url(authorization_url)
     redirect_url = raw_input('Paste full redirect url: ')
 
